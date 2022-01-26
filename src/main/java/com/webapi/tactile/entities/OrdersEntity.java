@@ -27,7 +27,7 @@ public class OrdersEntity {
     @ManyToOne
     @JoinColumn(name = "app_user_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     private AppUsersEntity appUsersByAppUserId;
-    @OneToMany(mappedBy = "ordersByOrderId")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy = "ordersByOrderId")
     private Collection<ProductToOrderEntity> productToOrdersById;
 
     public int getId() {
