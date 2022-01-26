@@ -1,6 +1,6 @@
 package com.webapi.tactile;
 
-import com.webapi.tactile.entities.AppUser;
+
 import com.webapi.tactile.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

@@ -1,6 +1,6 @@
 package com.webapi.tactile.security;
 
-import com.webapi.tactile.entities.AppUser;
+import com.webapi.tactile.entities.AppUsersEntity;
 import com.webapi.tactile.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -27,10 +27,10 @@ public class MyUserDetailsService implements UserDetailsService{
     // == public methods ==
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<AppUser> userRes = userRepository.findByEmail(email);
+        Optional<AppUsersEntity> userRes = userRepository.findByEmail(email);
         if(userRes.isEmpty())
             throw new UsernameNotFoundException("Could not findUser with email = " + email);
-        AppUser user = userRes.get();
+        AppUsersEntity user = userRes.get();
         return new org.springframework.security.core.userdetails.User(
                 email,
                 user.getPassword(),

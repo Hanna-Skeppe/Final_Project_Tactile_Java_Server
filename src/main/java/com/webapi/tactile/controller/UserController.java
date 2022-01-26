@@ -1,8 +1,10 @@
 package com.webapi.tactile.controller;
 // hantera protected routes osv...
 
-import com.webapi.tactile.entities.AppUser;
+import com.webapi.tactile.entities.AppUsersEntity;
+import com.webapi.tactile.models.UserVerification;
 import com.webapi.tactile.repository.AppUserRepository;
+import com.webapi.tactile.service.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -14,17 +16,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/user")
 public class UserController {
     // == fields ==
-    private AppUserRepository userRepository;
+    //private AppUserRepository userRepository;
+    UserServiceImpl userService;
 
-    // == contructors ==
-    public UserController(AppUserRepository userRepository) {
-        this.userRepository = userRepository;
+    // == constructors ==
+    public UserController(UserServiceImpl userService) {
+        this.userService= userService;
     }
 
     // == public methods ==
     @PostMapping("/verify_token")
-    public AppUser getUserDetails() {
+    public UserVerification getUserDetails() {
         String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return userRepository.findByEmail(email).get();
+        return userService.verifyUser(email);
     }
 }

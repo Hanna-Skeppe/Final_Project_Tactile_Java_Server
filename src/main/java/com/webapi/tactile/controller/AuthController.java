@@ -1,7 +1,7 @@
 package com.webapi.tactile.controller;
 // registrering och login för användare
 
-import com.webapi.tactile.entities.AppUser;
+import com.webapi.tactile.entities.AppUsersEntity;
 import com.webapi.tactile.models.LoginCredentials;
 import com.webapi.tactile.repository.AppUserRepository;
 import com.webapi.tactile.security.JWTUtil;
@@ -42,11 +42,11 @@ public class AuthController {
 
     // == public methods ==
     @PostMapping("/register")
-    public Map<String, Object> registerHandler(@RequestBody AppUser user){
+    public Map<String, Object> registerHandler(@RequestBody AppUsersEntity user){
         String encodedPass = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPass);
-        user = userRepository.save(user);
         log.info("user= {}", user);
+        user = userRepository.save(user);
         String token = jwtUtil.generateToken(user.getEmail());
         log.info("user= {}", token);
         return Collections.singletonMap("jwt-token", token);
