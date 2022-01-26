@@ -27,8 +27,11 @@ public class OrdersEntity {
     @ManyToOne
     @JoinColumn(name = "app_user_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     private AppUsersEntity appUsersByAppUserId;
-    @OneToMany(cascade=CascadeType.ALL, mappedBy = "ordersByOrderId")
-    private Collection<ProductToOrderEntity> productToOrdersById;
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name="product_to_order",
+            joinColumns = @JoinColumn(name="order_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name="product_id", referencedColumnName = "id"))
+    private Collection<ProductsEntity> productToOrdersById;
 
     public int getId() {
         return id;
@@ -105,11 +108,11 @@ public class OrdersEntity {
         this.appUsersByAppUserId = appUsersByAppUserId;
     }
 
-    public Collection<ProductToOrderEntity> getProductToOrdersById() {
+    public Collection<ProductsEntity> getProductToOrdersById() {
         return productToOrdersById;
     }
 
-    public void setProductToOrdersById(Collection<ProductToOrderEntity> productToOrdersById) {
+    public void setProductToOrdersById(Collection<ProductsEntity> productToOrdersById) {
         this.productToOrdersById = productToOrdersById;
     }
 }

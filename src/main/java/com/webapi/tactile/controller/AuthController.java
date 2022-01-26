@@ -21,13 +21,14 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/auth")
 public class AuthController {
+
     // == fields ==
     private AppUserRepository userRepository;
     private JWTUtil jwtUtil;
     private AuthenticationManager authManager;
     private PasswordEncoder passwordEncoder;
 
-    // == contructors ==
+    // == constructors ==
     @Autowired
     public AuthController(
             AppUserRepository userRepository,
@@ -63,7 +64,7 @@ public class AuthController {
             String token = jwtUtil.generateToken(body.getEmail());
 
             return Collections.singletonMap("token", token);
-        }catch (AuthenticationException authExc){
+        } catch (AuthenticationException authExc) {
             throw new RuntimeException("Invalid Login Credentials");
         }
     }
@@ -72,6 +73,4 @@ public class AuthController {
     public String pingString() {
         return "Hello from Spring Server";
     }
-
-
 }
