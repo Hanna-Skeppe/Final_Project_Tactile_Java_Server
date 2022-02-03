@@ -4,6 +4,7 @@ import com.stripe.exception.StripeException;
 import com.webapi.tactile.models.CheckoutItem;
 import com.webapi.tactile.models.OrderData;
 import com.webapi.tactile.models.StripeResponse;
+import com.webapi.tactile.service.EmailService;
 import com.webapi.tactile.service.OrderServiceImpl;
 import com.webapi.tactile.service.PaymentService;
 import com.webapi.tactile.utils.Mappings;
@@ -34,12 +35,16 @@ public class OrderController {
     // == fields ==
     OrderServiceImpl orderService;
     PaymentService paymentService;
-
+    EmailService emailService;
     // == constructors ==
     @Autowired
-    public OrderController(OrderServiceImpl orderService, PaymentService paymentService) {
+    public OrderController(
+            OrderServiceImpl orderService,
+            PaymentService paymentService,
+            EmailService emailService) {
         this.orderService = orderService;
         this.paymentService = paymentService;
+        this.emailService = emailService;
     }
 
     // == public methods ==
@@ -61,6 +66,12 @@ public class OrderController {
         return Collections.singletonMap("confirmationNumber", confirmationNumber);
     }
 
+    @PostMapping(Mappings.EMAILCONF)
+    public String sendEmail(@RequestBody String orderConfText) {
+        String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        emailService.sendSimpleMessage(email, "Order Confirmation: Tactile Crafts", orderConfText);
+        return "email was sent";
+    }
 
     //Added below will catch all validation errors, return bad_request with the errors.
     @ResponseStatus(HttpStatus.BAD_REQUEST)

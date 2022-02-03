@@ -12,6 +12,8 @@ public class Mappings {
     public static final String ORDER = "/api/order";
     public static final String CHECKOUT ="/checkout";
     public static final String CREATE = "/create";
+    public static final String EMAILCONF = "/emailconf";
+
 
     // == constants user controller ==
     public static final String USER = "/api/user";
