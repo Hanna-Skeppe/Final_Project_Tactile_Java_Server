@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Getter
@@ -16,6 +17,7 @@ public class LoginCredentials {
     // == fields ==
     @NotBlank(message = "Must enter an email") // Added Validation annotations
     @Email(message = "Must enter a valid email address")
+    //@Pattern(regexp = "/^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$/gi", message = "Must enter a valid email address")
     private String email;
 
     @NotBlank(message = "Must enter a password")
