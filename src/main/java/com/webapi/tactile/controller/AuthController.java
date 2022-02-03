@@ -46,11 +46,13 @@ public class AuthController {
     // == public methods ==
     @PostMapping(Mappings.REGISTER)
     public Map<String, Object> registerHandler(@Valid @RequestBody UserRegistration user){ //Added @Valid, moved logic to userService, change from AppUsers Entity to Model
+        log.info("inside register");
         return userService.createUser(user);
     }
 
     @PostMapping(Mappings.LOGIN)
     public Map<String, Object> loginHandler(@Valid @RequestBody LoginCredentials body){ //Added @Valid
+        log.info("inside login");
         try {
             UsernamePasswordAuthenticationToken authInputToken =
                     new UsernamePasswordAuthenticationToken(body.getEmail(), body.getPassword());

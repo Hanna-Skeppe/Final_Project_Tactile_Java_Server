@@ -61,6 +61,7 @@ public class OrderController {
 
     @PostMapping(Mappings.CREATE)
     public Map<String, Integer> createOrder(@Valid @RequestBody OrderData orderData) {
+        log.info("Inside order create");
         String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int confirmationNumber = orderService.createOrder(orderData, email); // Added confirmation number
         return Collections.singletonMap("confirmationNumber", confirmationNumber);
@@ -68,6 +69,7 @@ public class OrderController {
 
     @PostMapping(Mappings.EMAILCONF)
     public String sendEmail(@RequestBody String orderConfText) {
+        log.info("Inside email");
         String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         emailService.sendSimpleMessage(email, "Order Confirmation: Tactile Crafts", orderConfText);
         return "email was sent";

@@ -26,6 +26,7 @@ public class UserController {
     // == public methods ==
     @PostMapping(Mappings.VERIFY_TOKEN)
     public UserVerification getUserDetails() {
+        log.info("verify user");
         String email = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userService.verifyUser(email);
     }
