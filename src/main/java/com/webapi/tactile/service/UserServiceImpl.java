@@ -60,6 +60,6 @@ public class UserServiceImpl implements UserService {
         user = userRepository.save(user);
         String token = jwtUtil.generateToken(user.getEmail());
 
-        return Collections.singletonMap("jwt-token", token);
+        return Collections.singletonMap("token", token);
     }
 }

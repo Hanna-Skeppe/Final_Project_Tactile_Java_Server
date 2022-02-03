@@ -10,6 +10,7 @@ public class Mappings {
 
     // == constants order controller ==
     public static final String ORDER = "/api/order";
+    public static final String CHECKOUT ="/checkout";
     public static final String CREATE = "/create";
 
     // == constants user controller ==
